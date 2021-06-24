@@ -79,7 +79,12 @@ sayHelloButton.addEventListener('click', sayHello);
 
 const ohMy = () => {
     axios.get('http://localhost:3000/animals').then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
+        for(i=0; i<res.data.length; i++) {
+            let animal = document.createElement('p');
+            animal.textContent = res.data[i];
+            document.querySelector('body').appendChild(animal);
+        }
     })
 }
 
@@ -134,14 +139,12 @@ document.getElementById('repeat-button').addEventListener('click', repeatMyParam
 
 // CODE HERE
 const querier = () => {
-    axios.get('http://localhost:3000/query-test/repeat?querier=this is my query').then((res) => {
-        console.log(res.data)
-        let repeatText = document.getElementById('repeat-text');
-        repeatText.textContent = res.data;
-        repeatText.style.display = "block";
+    axios.get('http://localhost:3000/query-test/?querier=this is my query').then((res) => {
+        console.log(res.data); 
     })
+}
 
-       .addEventListener('click', querier)
+    document.getElementById('query-button').addEventListener('click', querier)
 
 
 
@@ -194,4 +197,15 @@ const querier = () => {
     Based on what we did earlier to display this type of data, write code that will display the response in your HTML document. 
 */
 
-// CODE HERE 
+// CODE HERE
+const createFood = () => {
+    let foodInput = document.getElementById('food'); {
+        let body = {
+            newFood: foodInput.value,
+        }
+        axios.get(`http://localhost:3000/food/${body}`).then((res) => {
+            console.log(res.data); 
+    })
+}
+
+document.getElementById('foodBtn').addEventListener('click', querier)
